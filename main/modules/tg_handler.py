@@ -126,12 +126,12 @@ async def start_uploading(data):
         duration = get_duration(file)
         durationx = get_durationx(file)
         filed = os.path.basename(file)
-        filed = filed.replace("[1080p][ESP-ENG][mkv]", "[1080p Web-DL]")
-        filed = filed.replace("[CameEsp]", "")
+        filed = filed.replace("Demon Slayer S04E05 1080p WEB H.264 E-AC-3 -Yandere-Raws (AMZN)", "Demon Slayer S4 - 04 [1080p Web-DL]")
+        razo = filed.replace("[1080p Web-DL].mkv", "[720p x265] @animxt.mkv")
         razo = filed.replace("[1080p Web-DL].mkv", "[720p x265] @animxt.mkv")
         fpath = "downloads/" + filed
         ghostname = name
-        ghostname = ghostname.replace("[1080p][ESP-ENG][mkv]", "")
+        ghostname = ghostname.replace("[1080p Web-DL].mkv", "")
         ghostname = ghostname.replace("[CameEsp]", "")
         main = await app.send_photo(KAYO_ID,photo=img,caption=caption)
         guessname = f"**{ghostname}**" + "\n" + f"__({tit})__" + "\n" + "━━━━━━━━━━━━━━━━━━━" + "\n" + "✓  `1080p x264 Web-DL`" + "\n" + f"✓  `English, Español (Latino), Español (Castellano) ~ Subs`" + "\n" + "#Source #WebDL"
