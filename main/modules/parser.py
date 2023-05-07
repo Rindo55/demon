@@ -10,13 +10,13 @@ from main.inline import button1
 
 def trim_title(title: str):
     title = title.rsplit(' ', 1)[0]
-    title = title.replace("[CameEsp]", "")
+    title = title.replace("Demon Slayer S04E04 1080p WEB H.264 E-AC-3 -Yandere-Raws (AMZN) (Kimetsu no Yaiba: Katanakaji no Sato-hen)", "Demon Slayer Kimetsu No Yaiba To the Swordsmith Village - 05")
     ext = ".mkv"
     title = title + ext
     return title
 
 def parse():
-    a = feedparser.parse("https://nyaa.si/?page=rss&u=Mayansito&q=tengoku%201080p")
+    a = feedparser.parse("https://nyaa.si/?page=rss&u=Tsundere-Raws&q=Kimetsu%20AMZN")
     b = a["entries"]
     b = b[0:1]
     data = []    
