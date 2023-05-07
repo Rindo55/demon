@@ -62,7 +62,7 @@ async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,nyaas
             caption = f"{filed}"
             caption = caption.replace("[720p x265] @animxt.mkv", "") 
             caption = caption.replace("[720p x265] @animxt", "") 
-            gcaption=f"**{caption}**" + "\n" +  f"__({tit})__" + "\n" + "━━━━━━━━━━━━━━━━━━━" + "\n" + "✓  `720p x265 10Bit`" + "\n" + f"✓  `English, Español (Latino), Español (Castellano) ~ Subs`" + "\n" + "#Encoded #HEVC"
+            gcaption=f"**{caption}**" + "\n" +  f"__({tit})__" + "\n" + "━━━━━━━━━━━━━━━━━━━" + "\n" + "✓  `720p x265 10Bit`" + "\n" + f"✓  `English ~ Sub`" + "\n" + "#Encoded #HEVC"
             kayo_id = -1001642923224
             gay_id = 1159872623
             x = await app.send_document(
