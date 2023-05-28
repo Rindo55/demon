@@ -126,7 +126,7 @@ async def start_uploading(data):
         duration = get_duration(file)
         durationx = get_durationx(file)
         filed = os.path.basename(file)
-        filed = filed.replace("Demon Slayer S04E08 1080p WEB H.264 E-AC-3 -Yandere-Raws (AMZN)", "Demon Slayer S4 - 08 [1080p Web-DL]")
+        filed = filed.replace("Demon Slayer S04E08 1080p WEB x264 E-AC-3 -Tsundere-Raws", "Demon Slayer S4 - 08 [1080p Web-DL]")
         razo = filed.replace("[1080p Web-DL].mkv", "[720p x265] @animxt.mkv")
         razo = filed.replace("[1080p Web-DL].mkv", "[720p x265] @animxt.mkv")
         fpath = "downloads/" + filed
