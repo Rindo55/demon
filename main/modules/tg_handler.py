@@ -158,8 +158,6 @@ async def start_uploading(data):
         source_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(sourcefileid)}"
         repl_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
                                                               "🐌TG FILE", url=source_link)]])       
-        enrepl_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
-                                                              "💬Comments", url=encomment)]])
         orgtext =  "**#Source_File**" + "\n" + f"**‣ File Name: `{filed}`**" + "\n" + "**‣ Video**: `1080p x264`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `English`" + "\n" + f"**‣ File Size**: `{nyaasize}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({source_link})"
         rep_id = int(main.id)  
         await asyncio.sleep(5)
