@@ -154,12 +154,8 @@ async def start_uploading(data):
 
             )   
         os.rename(file, fpath)
-        sourcefileid = str(videox.message_id)
+        sourcefileid = str(videox.id)
         source_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(sourcefileid)}"
-        com_id = int(main.message_id) + 1
-        encom_id = int(main.message_id) + 2
-        comment = f"t.me/c/{uj_id}/{com_id}?thread={com_id}"
-        encomment = f"t.me/c/{uj_id}/{encom_id}?thread={encom_id}"
         repl_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
                                                               "🐌TG FILE", url=source_link)]])       
         enrepl_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
