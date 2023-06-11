@@ -100,8 +100,6 @@ async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,nyaas
             xshare_url = f"{da_url}shorten"
             tgshare = requests.get(xshare_url, params={"url": cshare})
             teleshare = tgshare.text.strip()            
-            come_id = int(untext.message_id)
-            come_link = f"t.me/c/{gay_id}/{come_id}?thread={come_id}"
             repl_markup=InlineKeyboardMarkup(
                 [
                     [
