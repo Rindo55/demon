@@ -159,7 +159,7 @@ async def start_uploading(data):
         repl_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
                                                               "🐌TG FILE", url=source_link)]])       
         orgtext =  "**#Source_File**" + "\n" + f"**‣ File Name: `{filed}`**" + "\n" + "**‣ Video**: `1080p x264`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `English`" + "\n" + f"**‣ File Size**: `{nyaasize}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({source_link})"
-        rep_id = int(main.message_id)  
+        rep_id = 32151
         await asyncio.sleep(5)
         untextx = await app.send_message(
                       chat_id=KAYO_ID,
