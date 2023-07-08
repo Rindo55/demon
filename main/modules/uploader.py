@@ -91,7 +91,7 @@ async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,nyaas
             gofile_url = f"{da_url}shorten"
             goresponse = requests.get(gofile_url, params={"url": gourl})
             gofuk_text = goresponse.text.strip()
-            file_er_id = str(x.id)
+            file_er_id = str(x.message_id)
             share_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(file_er_id)}"
             enshare_link = f"https://tnlinks.in/api?api=1458ad61946fd6f5b8a93161c9cfd94733813566&url={share_link}&format=text"
             fukshare = requests.get(enshare_link)
