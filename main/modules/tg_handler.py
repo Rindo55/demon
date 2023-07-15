@@ -126,7 +126,7 @@ async def start_uploading(data):
         duration = get_duration(file)
         durationx = get_durationx(file)
         filed = os.path.basename(file)
-        filed = filed.replace("Bleach S18E01 1080p WEB H.264 AAC -Tsundere-Raws (HULU)", "Bleach TYBW Separation - 01 [1080p Web-DL]")
+        filed = filed.replace("BLEACH.Thousand-Year.Blood.War.S02E02.PEACE.FROM.SHADOWS.1080p.DSNP.WEB-DL.AAC2.0.x264", "Bleach TYBW Separation - 02 [1080p Web-DL]")
         razo = filed.replace("[1080p Web-DL].mkv", "[720p x265] @animxt.mkv")
         razo = filed.replace("[1080p Web-DL].mkv", "[720p x265] @animxt.mkv")
         fpath = "downloads/" + filed
