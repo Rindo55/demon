@@ -126,7 +126,7 @@ async def start_uploading(data):
         duration = get_duration(file)
         durationx = get_durationx(file)
         filed = os.path.basename(file)
-        filed = filed.replace("Bleach.Thousand-Year.Blood.War.S01E19.THE.WHITE.HAZE.1080p.HULU.WEB-DL.AAC2.0.H.264-VARYG", "Bleach TYBW Separation - 06 [1080p Web-DL]")
+        filed = filed.replace("Bleach S17E23 1080p WEB H.264 AAC -Tsundere-Raws (DSNP)", "Bleach TYBW Separation - 10 [1080p Web-DL]")
         razo = filed.replace("[1080p Web-DL].mkv", "[720p x265] @animxt.mkv")
         razo = filed.replace("[1080p Web-DL].mkv", "[720p x265] @animxt.mkv")
         fpath = "downloads/" + filed
@@ -134,7 +134,7 @@ async def start_uploading(data):
         ghostname = ghostname.replace("[1080p Web-DL].mkv", "")
         ghostname = ghostname.replace(".mkv", "")
         main = await app.send_photo(KAYO_ID,photo=img,caption=caption)
-        guessname = f"**{ghostname}**" + "\n" + f"__({tit})__" + "\n" + "━━━━━━━━━━━━━━━━━━━" + "\n" + "✓  `1080p x264 Web-DL`" + "\n" + f"✓  `English ~ Sub`" + "\n" + "#Source #WebDL"
+        guessname = f"**{ghostname}**" + "\n" + f"__({tit})__" + "\n" + "━━━━━━━━━━━━━━━━━━━" + "\n" + "✓  `1080p x264 Web-DL`" + "\n" + f"✓  `English, French (France), German, Italian, Portuguese (Brazil), Spanish (Latin America) ~ Sub`" + "\n" + "#Source #WebDL"
 
         thumbnail = await generate_thumbnail(id,file)
 
@@ -158,7 +158,7 @@ async def start_uploading(data):
         source_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(sourcefileid)}"
         repl_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
                                                               "🐌TG FILE", url=source_link)]])       
-        orgtext =  "**#Source_File**" + "\n" + f"**‣ File Name: `{filed}`**" + "\n" + "**‣ Video**: `1080p x264`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `English`" + "\n" + f"**‣ File Size**: `{nyaasize}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({source_link})"
+        orgtext =  "**#Source_File**" + "\n" + f"**‣ File Name: `{filed}`**" + "\n" + "**‣ Video**: `1080p x264`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `English, French (France), German, Italian, Portuguese (Brazil), Spanish (Latin America)`" + "\n" + f"**‣ File Size**: `{nyaasize}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({source_link})"
         rep_id = int(main.message_id)
         await asyncio.sleep(5)
         untextx = await app.send_message(
@@ -169,7 +169,7 @@ async def start_uploading(data):
         await asyncio.sleep(3)
         unitext = await untextx.edit(orgtext, reply_markup=repl_markup)
         await asyncio.sleep(5)
-        sourcetext =  f"**#Encoded_File**" + "\n" + f"**‣ File Name**: `{razo}`" + "\n" + "**‣ Video**: `720p HEVC x265 10Bit`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `English`"
+        sourcetext =  f"**#Encoded_File**" + "\n" + f"**‣ File Name**: `{razo}`" + "\n" + "**‣ Video**: `720p HEVC x265 10Bit`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `English, French (France), German, Italian, Portuguese (Brazil), Spanish (Latin America)`"
         untext = await app.send_message(
                       chat_id=KAYO_ID,
                       text=sourcetext,
