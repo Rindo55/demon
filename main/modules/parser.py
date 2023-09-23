@@ -10,7 +10,7 @@ from main.inline import button1
 
 def trim_title(title: str):
     title = title.replace("Demon Slayer S04E04 1080p WEB H.264 E-AC-3 -Yandere-Raws (AMZN) (Kimetsu no Yaiba: Katanakaji no Sato-hen)", "Demon Slayer Kimetsu No Yaiba To the Swordsmith Village - 04")
-    title = title.replace("Bleach S17E23 1080p WEB H.264 AAC -Tsundere-Raws (DSNP) (Multi-Subs, VOSTFR, Bleach: Sennen Kessen-hen - Ketsubetsu-tan, Bleach: Thousand-Year Blood War - The Separation)", "Bleach Thousand Year Blood War The Separation - 10")
+    title = title.replace("Bleach S17E24 1080p WEB H.264 AAC -Tsundere-Raws (DSNP) (Multi-Subs, VOSTFR, Bleach: Sennen Kessen-hen - Ketsubetsu-tan, Bleach: Thousand-Year Blood War - The Separation)", "Bleach Thousand Year Blood War The Separation - 11")
     ext = ".mkv"
     title = title + ext
     return title
