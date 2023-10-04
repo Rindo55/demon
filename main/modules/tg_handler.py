@@ -126,7 +126,7 @@ async def start_uploading(data):
         duration = get_duration(file)
         durationx = get_durationx(file)
         filed = os.path.basename(file)
-        filed = filed.replace("Bleach S17E24 1080p WEB H.264 AAC -Tsundere-Raws (DSNP)", "Bleach TYBW Separation - 11 [1080p Web-DL]")
+        filed = filed.replace("[CameEsp] Tokyo Revengers - Tenjiku Hen - 01 [1080p][ESP-ENG][mkv]", "Tokyo Revengers - Tenjiku Hen - 01 [1080p Web-DL]")
         razo = filed.replace("[1080p Web-DL].mkv", "[720p x265] @animxt.mkv")
         razo = filed.replace("[1080p Web-DL].mkv", "[720p x265] @animxt.mkv")
         fpath = "downloads/" + filed
@@ -154,11 +154,48 @@ async def start_uploading(data):
 
             )   
         os.rename(file, fpath)
-        sourcefileid = str(videox.message_id)
-        source_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(sourcefileid)}"
-        repl_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
-                                                              "🐌TG FILE", url=source_link)]])       
-        orgtext =  "**#Source_File**" + "\n" + f"**‣ File Name: `{filed}`**" + "\n" + "**‣ Video**: `1080p x264`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `English, French (France), German, Italian, Portuguese (Brazil), Spanish (Latin America)`" + "\n" + f"**‣ File Size**: `{nyaasize}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({source_link})"
+        fid = str(videox.message_id)
+        source_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(fid)}"
+        await asyncio.sleep(10)
+        id = await is_fid_in_db(fid)
+        if id:
+            hash = id["code"]
+            ddlx = f"https://dxd.ownl.tk/beta/{hash}"
+        api_url = f"http://yoururl.in/api?api=41b0b500ae8a0ab78c9c6abefb9583530c2e0ec7&url={ddlx}&format=text"
+        result = requests.get(api_url)
+        nai_text = result.text
+        da_url = "https://da.gd/"
+        url = nai_text
+        shorten_url = f"{da_url}shorten"
+        response = requests.post(shorten_url, params={"url": url})
+        nyaa_text = response.text.strip()
+        repl_markup=InlineKeyboardMarkup(
+
+            [
+
+                [
+
+                    InlineKeyboardButton(
+
+                        text="🐌TG FILE",
+
+                        url=source_link,
+
+                    ),
+
+                    InlineKeyboardButton(
+
+                        text="🚀BETA DL",
+
+                        url=nyaa_text,
+
+                    ),
+  
+                ],
+                    
+            ],
+        )
+        orgtext =  "**#Source_File**" + "\n" + f"**‣ File Name: `{filed}`**" + "\n" + "**‣ Video**: `1080p x264`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `{subtitle}`" + "\n" + f"**‣ File Size**: `{nyaasize}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({source_link}) [🔗BETA DL]({nyaa_text})"
         rep_id = int(main.message_id)
         await asyncio.sleep(5)
         untextx = await app.send_message(
@@ -169,7 +206,7 @@ async def start_uploading(data):
         await asyncio.sleep(3)
         unitext = await untextx.edit(orgtext, reply_markup=repl_markup)
         await asyncio.sleep(5)
-        sourcetext =  f"**#Encoded_File**" + "\n" + f"**‣ File Name**: `{razo}`" + "\n" + "**‣ Video**: `720p HEVC x265 10Bit`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `English, French (France), German, Italian, Portuguese (Brazil), Spanish (Latin America)`"
+        sourcetext =  f"**#Encoded_File**" + "\n" + f"**‣ File Name**: `{razo}`" + "\n" + "**‣ Video**: `720p HEVC x265 10Bit`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `{subtitle}`"
         untext = await app.send_message(
                       chat_id=KAYO_ID,
                       text=sourcetext,
@@ -180,7 +217,7 @@ async def start_uploading(data):
         os.rename(fpath,"video.mkv")
         await asyncio.sleep(5)
         compressed = await compress_video(duration,untext,name,sourcetext)
-
+        
         dingdong = await untext.edit(sourcetext)
 
 
@@ -193,10 +230,11 @@ async def start_uploading(data):
         else:
 
             os.rename("out.mkv",fpath)
-
+  
         print("Uploading --> ",name)
 
-        video = await upload_video(msg,fpath,id,tit,name,size,sourcetext,untext,nyaasize) 
+        await status.edit(await status_text(f"Uploading {name }"),reply_markup=button1)
+        video = await upload_video(msg,fpath,id,tit,name,size,sourcetext,untext,subtitle,nyaasize,thumbnail) 
         try:
 
             os.remove("video.mkv")
@@ -225,4 +263,4 @@ async def start_uploading(data):
 
         await asyncio.sleep(flood_time)
 
-    return  id, name, video
+    return id, name, video
