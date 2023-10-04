@@ -113,18 +113,7 @@ async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,subti
             tgshare = requests.get(xshare_url, params={"url": cshare})
             teleshare = tgshare.text.strip() 
             await asyncio.sleep(10)
-            id = await is_fid_in_db(fid)
-            if id:
-                hash = id["code"]
-                ddl = f"https://dxd.ownl.tk/beta/{hash}"
-            api_url = f"http://yoururl.in/api?api=41b0b500ae8a0ab78c9c6abefb9583530c2e0ec7&url={ddl}&format=text"
-            result = requests.get(api_url)
-            nai_text = result.text
     
-            url = nai_text
-            shorten_url = f"{da_url}shorten"
-            response = requests.post(shorten_url, params={"url": url})
-            nyaa_text = response.text.strip()
         
             repl_markup=InlineKeyboardMarkup(
 
@@ -139,21 +128,13 @@ async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,subti
                             url=teleshare,
 
                         ),
-
-                         InlineKeyboardButton(
-
-                              text="🚀BETA DL",
-
-                              url=nyaa_text,
-
-                        ),
   
                     ],
                     
                 ],
             )
 
-            encodetext =  f"{sourcetext}" "\n" + f"**‣ File Size**: `{size}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({teleshare}) [🔗BETA DL]({nyaa_text})"
+            encodetext =  f"{sourcetext}" "\n" + f"**‣ File Size**: `{size}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({teleshare})"
 
             await asyncio.sleep(5)
 
