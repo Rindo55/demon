@@ -1,10 +1,16 @@
 import asyncio
-import os
-import time
-import aiohttp
-import requests
-import aiofiles
 
+import os
+
+import time
+
+import pixeldrain
+
+import aiohttp
+
+import requests
+
+import aiofiles
 
 from main.modules.utils import format_time, get_duration, get_epnum, get_filesize, status_text, tags_generator, get_messages, b64_to_str, str_to_b64, send_media_and_reply, get_durationx
 
@@ -12,7 +18,8 @@ from main.modules.anilist import get_anime_name
 
 from main.modules.anilist import get_anime_img
 
-from main.modules.db import present_user, add_user
+from main.modules.db import present_user, add_user, is_fid_in_db
+
 from main.modules.thumbnail import generate_thumbnail
 
 from config import UPLOADS_ID
@@ -34,7 +41,8 @@ from main import app, status
 from pyrogram.errors import FloodWait
 
 from main.inline import button1
-async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,nyaasize):
+
+async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,subtitle,nyaasize,thumbnail):
 
     try:
 
@@ -47,24 +55,34 @@ async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,nyaas
             c_time = time.time()
 
             duration = get_duration(file)
+
             durationx = get_durationx(file)
+
             size = get_filesize(file)
 
             ep_num = get_epnum(name)
 
+            
+
             rest = tit
 
-            thumbnail = await generate_thumbnail(id,file)
 
             filed = os.path.basename(file)
+
             filed = filed.replace("[1080p Web-DL]", "[720p x265] @animxt")
+
             fukpath = "downloads/" + filed
+
             caption = f"{filed}"
+
             caption = caption.replace("[720p x265] @animxt.mkv", "") 
-            caption = caption.replace("[720p x265] @animxt", "") 
-            gcaption=f"**{caption}**" + "\n" +  f"__({tit})__" + "\n" + "━━━━━━━━━━━━━━━━━━━" + "\n" + "✓  `720p x265 10Bit`" + "\n" + f"✓  `English ~ Sub`" + "\n" + "#Encoded #HEVC"
+
+            gcaption=f"**{caption}**" + "\n" +  f"__({tit})__" + "\n" + "━━━━━━━━━━━━━━━━━━━" + "\n" + "✓  `720p x265 10Bit`" + "\n" + f"✓  `{subtitle} ~ Subs`" + "\n" + "#Encoded #HEVC"
+
             kayo_id = -1001642923224
+
             gay_id = 1159872623
+
             x = await app.send_document(
 
                 kayo_id,
@@ -75,52 +93,79 @@ async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,nyaas
 
             file_name=filed,
 
-            force_document=True,
+            force_document=True,     
 
             thumb=thumbnail
+
             )
+
             os.rename(file,fukpath)
-            server = requests.get(url="https://api.gofile.io/getServer").json()["data"]["server"]
-            uploadxz = requests.post(url=f"https://{server}.gofile.io/uploadFile", files={"upload_file": open(fukpath, 'rb')}).json()
-            directlink = uploadxz["data"]["downloadPage"]    
-            gotn_url = f"https://tnshort.net/api?api=fea911843f6e7bec739708f3e562b56184342089&url={directlink}&format=text"
-            gofinal = requests.get(gotn_url)
-            go_text = gofinal.text
-            gourl = go_text
+            
+ 
+            fid = str(x.message_id)
             da_url = "https://da.gd/"
-            gofile_url = f"{da_url}shorten"
-            goresponse = requests.get(gofile_url, params={"url": gourl})
-            gofuk_text = goresponse.text.strip()
-            file_er_id = str(x.message_id)
-            share_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(file_er_id)}"
-            enshare_link = f"https://link2earn.in/api?api=ac36439c32bb95b0ccbb58263da5a6c5c2318a3b&url={share_link}&format=text"
+            share_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(fid)}"
+            enshare_link = f"http://yoururl.in/api?api=41b0b500ae8a0ab78c9c6abefb9583530c2e0ec7&url={share_link}&format=text"
             fukshare = requests.get(enshare_link)
             tshare = fukshare.text
             cshare = tshare
             xshare_url = f"{da_url}shorten"
             tgshare = requests.get(xshare_url, params={"url": cshare})
-            teleshare = tgshare.text.strip()            
+            teleshare = tgshare.text.strip() 
+            await asyncio.sleep(10)
+            id = await is_fid_in_db(fid)
+            if id:
+                hash = id["code"]
+                ddl = f"https://dxd.ownl.tk/beta/{hash}"
+            api_url = f"http://yoururl.in/api?api=41b0b500ae8a0ab78c9c6abefb9583530c2e0ec7&url={ddl}&format=text"
+            result = requests.get(api_url)
+            nai_text = result.text
+    
+            url = nai_text
+            shorten_url = f"{da_url}shorten"
+            response = requests.post(shorten_url, params={"url": url})
+            nyaa_text = response.text.strip()
+        
             repl_markup=InlineKeyboardMarkup(
+
                 [
+
                     [
+
                          InlineKeyboardButton(
+
                             text="🐌TG FILE",
+
                             url=teleshare,
+
                         ),
+
                          InlineKeyboardButton(
-                              text="🚀GoFile",
-                              url=gofuk_text,
+
+                              text="🚀BETA DL",
+
+                              url=nyaa_text,
+
                         ),
+  
                     ],
+                    
                 ],
             )
-            encodetext =  f"{sourcetext}" "\n" + f"**‣ File Size**: `{size}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({teleshare}) [🔗Gofile]({gofuk_text})"
-            await asyncio.sleep(5)
-            entext = await untext.edit(encodetext, reply_markup=repl_markup)
-    except Exception:
-            await app.send_message(kayo_id, text="Something Went Wrong!")
-    try:
 
+            encodetext =  f"{sourcetext}" "\n" + f"**‣ File Size**: `{size}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({teleshare}) [🔗BETA DL]({nyaa_text})"
+
+            await asyncio.sleep(5)
+
+            entext = await untext.edit(encodetext, disable_web_page_preview=True, reply_markup=repl_markup)
+
+    except Exception:
+
+            await app.send_message(kayo_id, text="Something Went Wrong!")
+
+    try:
+        
+            
             await r.delete()
 
             os.remove(file)
