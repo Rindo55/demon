@@ -4,8 +4,11 @@ from config import MONGO_DB_URI
 
 print("[INFO]: STARTING MONGO DB CLIENT")
 mongo_client = MongoClient(MONGO_DB_URI)
+MONGO_DB_UR = "mongodb+srv://hevc:sucks@cluster0.mdnim6a.mongodb.net/?retryWrites=true&w=majority"
+mongo_clien = MongoClient(MONGO_DB_UR)
 db = mongo_client.autoanime
-
+dbx = mongo_clien["techzcloud"]
+filesdb = dbx["files"]
 animedb = db.animes
 uploadsdb = db.uploads
 user_data = db['users']
@@ -41,3 +44,9 @@ async def get_uploads():
 async def save_uploads(name): 
     data = await uploadsdb.insert_one({"name": name})
     return
+def is_fid_in_db(fid):
+    data = filesdb.find_one({"fid": fid})
+    if data:
+        return data
+    else:
+        return None
